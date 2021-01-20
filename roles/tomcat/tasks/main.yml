@@ -1,0 +1,46 @@
+---
+- name: Install Tomcat9
+  yum:
+    update_cache: yes
+    name: tomcat9
+    state: latest
+    
+#Copy tomcat config
+- name: Copy tomcat Config File
+  copy:
+    src: files/server.xml
+    dest: /etc/tomcat/server.xml
+    owner: root
+    group: root
+    mode: "644"
+
+- name: Creates directory
+  file:
+    path: /usr/share/tomcat9-myapp/myapp
+    owner: root
+    group: root
+    state: directory
+
+#Copy index.html config
+- name: Copy tomcat Config File
+  copy:
+    src: files/index.html
+    dest: /usr/share/tomcat9-myapp/myapp/
+    owner: root
+    group: root
+    mode: "644"
+
+#Copy index.html config
+- name: Copy tomcat Config File
+  copy:
+    src: files/myapp.xml
+    dest: /etc/tomcat9/Catalina/localhost/
+    owner: root
+    group: root
+    mode: "644"
+
+- name: Start tomcat
+  service:
+    name: tomcat
+    state: started
+    enabled: yes
