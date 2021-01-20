@@ -1,0 +1,10 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  become_user: root
+  gather_facts: yes
+  remote_user: user
+
+  roles:
+    - tomcat

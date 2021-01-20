@@ -1,12 +1,12 @@
 ---
-- name: Install Tomcat9
+- name: Install Tomcat
   yum:
     update_cache: yes
-    name: tomcat9
+    name: tomcat
     state: latest
     
-#Copy tomcat config
-- name: Copy tomcat Config File
+#Copy tomcat server.xml config
+- name: Copy tomcat server.xml config
   copy:
     src: files/server.xml
     dest: /etc/tomcat/server.xml
@@ -14,27 +14,18 @@
     group: root
     mode: "644"
 
-- name: Creates directory
+- name: Creates directory for the new custom page
   file:
-    path: /usr/share/tomcat9-myapp/myapp
+    path: /usr/share/tomcat/webapps/ROOT
     owner: root
     group: root
     state: directory
 
 #Copy index.html config
-- name: Copy tomcat Config File
+- name: Copy index.html config
   copy:
     src: files/index.html
-    dest: /usr/share/tomcat9-myapp/myapp/
-    owner: root
-    group: root
-    mode: "644"
-
-#Copy index.html config
-- name: Copy tomcat Config File
-  copy:
-    src: files/myapp.xml
-    dest: /etc/tomcat9/Catalina/localhost/
+    dest: /usr/share/tomcat/webapps/ROOT
     owner: root
     group: root
     mode: "644"
